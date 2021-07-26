@@ -76,7 +76,7 @@ const addBookHandler = (request, h) => {
 };
 
 const getAllBooksHandler = (request) => {
-  const { name, finished } = request.query;
+  const { name, finished, reading } = request.query;
   const booksResponse = [];
   let filteredBooks = books;
 
@@ -89,6 +89,12 @@ const getAllBooksHandler = (request) => {
   if (finished !== undefined) {
     filteredBooks = books.filter((book) => {
       return book.finished === !!+finished;
+    });
+  }
+
+  if (reading !== undefined) {
+    filteredBooks = books.filter((book) => {
+      return book.reading === !!+reading;
     });
   }
 
