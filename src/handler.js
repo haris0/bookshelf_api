@@ -75,10 +75,17 @@ const addBookHandler = (request, h) => {
   return response;
 };
 
-const getAllBooksHandler = () => {
+const getAllBooksHandler = (request) => {
+  let { name } = request.query;
   const booksResponse = [];
+  let filteredBooks = books;
 
-  books.forEach((book) => {
+  if (name) {
+    name = name.toLowerCase();
+    filteredBooks = books.filter((book) => book.name.toLowerCase().indexOf(name) !== -1);
+  }
+
+  filteredBooks.forEach((book) => {
     booksResponse.push({
       id: book.id,
       name: book.name,
